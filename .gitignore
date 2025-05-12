@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/FormView
+/.vs
+/FormViewLibraries/bin/Debug/net8.0
+/FormViewLibraries/obj
+/FormView_Desktop/bin/Debug/net8.0-windows
+/FormView_Desktop/obj
