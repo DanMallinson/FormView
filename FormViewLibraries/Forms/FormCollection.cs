@@ -14,6 +14,7 @@ namespace FormViewLibraries.Forms
 
         public FormCollection()
         {
+            FormList = new List<Form>();
         }
     }
 }

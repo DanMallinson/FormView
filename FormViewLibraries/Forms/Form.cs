@@ -8,5 +8,6 @@ namespace FormViewLibraries.Forms
 {
     public abstract class Form
     {
+        public DateTime Timestamp { get; set; }
     }
 }

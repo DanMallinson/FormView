@@ -9,6 +9,6 @@ namespace FormViewLibraries.Forms
 {
     public class ImageForm : Form
     {
-        public Bitmap Image { get; set; }
+        public string? Filename { get; set; }
     }
 }

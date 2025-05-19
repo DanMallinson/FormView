@@ -1,4 +1,5 @@
 ﻿using FormView_Desktop.Controls;
+using FormViewLibraries;
 using FormViewLibraries.Forms;
 using System;
 using System.Collections.Generic;
@@ -51,13 +52,12 @@ namespace FormView_Desktop.Forms
                 return;
             }
 
-            //TODO - return proper search results
-            _searchResults = new List<FormViewLibraries.Forms.FormCollection>()
+            var manager = new FormViewManager()
             {
-                new() { Timestamp = new DateTime(2001,01,01), FormList = new List<FormViewLibraries.Forms.Form>() { new ImageForm() {  Image = new Bitmap(@"C:\Users\Dan\source\repos\FormView\Testing\Form 1.bmp") }, new ImageForm() { Image = new Bitmap(@"C:\Users\Dan\source\repos\FormView\Testing\Form 2.bmp") } } },
-                new() { Timestamp = new DateTime(2001,01,02), FormList = new List<FormViewLibraries.Forms.Form>() { new ImageForm() { Image = new Bitmap(@"C:\Users\Dan\source\repos\FormView\Testing\Form 3.bmp") } } },
-                //new() { Timestamp = new DateTime(2001,01,03), FormList = new List<FormViewLibraries.Forms.Form>() { new PdfForm() { Url = @"C:\Users\Dan\source\repos\FormView\Testing\PDF Form.pdf" } } },
+                ConnectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=FormView;Trusted_Connection=True;" //TODO = get from settings
             };
+
+            _searchResults = manager.GetAllFormsForID(searchValue);
 
             RefreshSearchResults();
         }
@@ -121,7 +121,7 @@ namespace FormView_Desktop.Forms
             numericUpDown_currentPage.Maximum = _currentForms.FormList.Count;
             label_viewTotal.Text = _currentForms.FormList.Count.ToString();
             button_viewAll.Enabled = numericUpDown_currentPage.Maximum > 1;
-            numericUpDown_currentPage.Value = 1;    //TODO - select this from settings - might want to select all (0) or last etc.
+            numericUpDown_currentPage.Value = numericUpDown_currentPage.Minimum;    //TODO - select this from settings - might want to select all (0) or last etc.
             RefreshFormList();
         }
 
@@ -182,7 +182,6 @@ namespace FormView_Desktop.Forms
 
             if (numericUpDown_currentPage.Value == 0)
             {
-                //TODO - view all
                 _currentForm = null;
             }
             else
@@ -204,7 +203,7 @@ namespace FormView_Desktop.Forms
             else if (_currentForm is ImageForm imageForm)
             {
                 var imageViewer = new ImageViewControl();
-                imageViewer.Image = imageForm.Image;
+                imageViewer.Image = new Bitmap(imageForm.Filename); //TODO - check this gets disposed
                 newControl = imageViewer;
 
             }

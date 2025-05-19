@@ -66,7 +66,7 @@ namespace FormView_Desktop.Controls
                 if (Forms[i] is ImageForm imageForm)
                 {
                     var pictureBox = new PictureBox();
-                    pictureBox.Image = imageForm.Image;
+                    pictureBox.Image = new Bitmap(imageForm.Filename); //TODO - check this gets disposed
                     pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                     pictureBox.BorderStyle = BorderStyle.FixedSingle;
                     panel = pictureBox;
