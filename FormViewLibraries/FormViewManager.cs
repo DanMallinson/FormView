@@ -7,13 +7,15 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using System.Security.AccessControl;
 namespace FormViewLibraries
 {
     public class FormViewManager
     {
-        public string ConnectionString { get; set; }
-
-        public NetworkCredential Credentials { get; set; }
+        public string Server { get; set; }
+        public string Database { get; set; }
+        public string FileServer { get; set; }
+        public SqlCredential Credentials { get; set; }
 
         public FormViewManager() 
         {
@@ -21,7 +23,8 @@ namespace FormViewLibraries
 
         public List<FormCollection> GetAllFormsForID(string id)
         {
-            var connection = new SqlConnection(ConnectionString);
+            var connection = new SqlConnection(BuildConnectionString());
+            connection.Credential = Credentials;
             var command = new SqlCommand()
             {
                 Connection = connection,
@@ -66,6 +69,21 @@ namespace FormViewLibraries
             return groupedSets.Values.ToList();
         }
 
+        private string BuildConnectionString()
+        {
+            var builder = new SqlConnectionStringBuilder();
+
+            builder.Add("Server", Server);
+            builder.Add("Database", Database);
+
+            if(Credentials == null)
+            {
+                builder.Add("Integrated Security", true);
+            }
+
+            return builder.ToString();
+        }
+
         private Form ReadFormFromSql(SqlDataReader reader)
         {
             Form result;
@@ -83,14 +101,14 @@ namespace FormViewLibraries
                 case "image":
                     {
                         var imageForm = new ImageForm();
-                        imageForm.Filename = reader["Path"] as string;
+                        imageForm.Filename = Path.Combine(FileServer,reader["Path"] as string);
                         result = imageForm;
                     }
                     break;
                 case "pdf":
                     {
                         var pdfForm = new PdfForm();
-                        pdfForm.Url = reader["Path"] as string;
+                        pdfForm.Url = Path.Combine(FileServer, reader["Path"] as string);
                         result = pdfForm;
                     }
                     break;

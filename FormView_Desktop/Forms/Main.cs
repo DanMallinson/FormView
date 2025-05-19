@@ -1,6 +1,7 @@
 ﻿using FormView_Desktop.Controls;
 using FormViewLibraries;
 using FormViewLibraries.Forms;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Media;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -52,14 +54,37 @@ namespace FormView_Desktop.Forms
                 return;
             }
 
+            SqlCredential credentials = null;
+
+            if (!FormView_Desktop.Settings.Default.UseDefaultCredentials)
+            {
+                credentials = new SqlCredential(FormView_Desktop.Settings.Default.Username, GetSecurePassword());
+            }
             var manager = new FormViewManager()
             {
-                ConnectionString = @"Server=(LocalDB)\MSSQLLocalDB;Database=FormView;Trusted_Connection=True;" //TODO = get from settings
+                Server = FormView_Desktop.Settings.Default.Server,
+                Database = FormView_Desktop.Settings.Default.Database,
+                Credentials = credentials,
+                FileServer = FormView_Desktop.Settings.Default.FileServer,
             };
 
             _searchResults = manager.GetAllFormsForID(searchValue);
 
             RefreshSearchResults();
+        }
+
+        private SecureString GetSecurePassword()
+        {
+            var result = new SecureString();
+
+            foreach (var c in FormView_Desktop.Settings.Default.Password)
+            {
+                result.AppendChar(c);
+            }
+
+            result.MakeReadOnly();
+
+            return result;
         }
 
         private void RefreshSearchResults()
@@ -236,6 +261,13 @@ namespace FormView_Desktop.Forms
         private void button_viewAll_Click(object sender, EventArgs e)
         {
             numericUpDown_currentPage.Value = 0;
+        }
+
+        private void toolStripMenuItem_settings_Click(object sender, EventArgs e)
+        {
+            using var settings = new Settings();
+
+            settings.ShowDialog();
         }
     }
 }

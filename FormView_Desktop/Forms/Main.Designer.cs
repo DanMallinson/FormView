@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             menuStrip_mainMenu = new MenuStrip();
+            toolStripMenuItem_settings = new ToolStripMenuItem();
             label_formNumber = new Label();
             textBox_formNumber = new TextBox();
             panel_sideBar = new Panel();
@@ -48,6 +49,7 @@
             button_viewFirst = new Button();
             button_viewAll = new Button();
             panel_spacer = new Panel();
+            menuStrip_mainMenu.SuspendLayout();
             panel_sideBar.SuspendLayout();
             panel_search.SuspendLayout();
             panel_view.SuspendLayout();
@@ -58,11 +60,19 @@
             // 
             // menuStrip_mainMenu
             // 
+            menuStrip_mainMenu.Items.AddRange(new ToolStripItem[] { toolStripMenuItem_settings });
             menuStrip_mainMenu.Location = new Point(0, 0);
             menuStrip_mainMenu.Name = "menuStrip_mainMenu";
             menuStrip_mainMenu.Size = new Size(800, 24);
             menuStrip_mainMenu.TabIndex = 0;
             menuStrip_mainMenu.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem_settings
+            // 
+            toolStripMenuItem_settings.Name = "toolStripMenuItem_settings";
+            toolStripMenuItem_settings.Size = new Size(61, 20);
+            toolStripMenuItem_settings.Text = "Settings";
+            toolStripMenuItem_settings.Click += toolStripMenuItem_settings_Click;
             // 
             // label_formNumber
             // 
@@ -276,6 +286,8 @@
             MainMenuStrip = menuStrip_mainMenu;
             Name = "Main";
             Text = "FormView";
+            menuStrip_mainMenu.ResumeLayout(false);
+            menuStrip_mainMenu.PerformLayout();
             panel_sideBar.ResumeLayout(false);
             panel_sideBar.PerformLayout();
             panel_search.ResumeLayout(false);
@@ -312,5 +324,6 @@
         private Label label_of;
         private NumericUpDown numericUpDown_currentPage;
         private Panel panel_spacer;
+        private ToolStripMenuItem toolStripMenuItem_settings;
     }
 }
