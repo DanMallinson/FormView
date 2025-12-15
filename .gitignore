@@ -8,3 +8,6 @@
 /FormViewLibraries/obj
 /FormView_Desktop/bin/Debug/net8.0-windows
 /FormView_Desktop/obj
+/FormView_Web/bin/Debug/net8.0
+/FormView_Web/obj
+/FormView_Web/appsettings.Development.json
