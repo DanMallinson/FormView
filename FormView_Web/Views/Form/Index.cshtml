@@ -1,0 +1,66 @@
+﻿@using FormViewLibraries
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@if(ViewBag.Results == null || ViewBag.Results.Count == 0)
+{
+    <p>No results found</p>
+}
+else
+{
+    <div class="layout">
+        <div id="Form-Results" class="sidebar">
+            @foreach (var pair in ViewBag.Results)
+            {
+                var key = pair.Key.ToString("yyyy-MM-dd");
+
+                <button class="btn btn-primary" onclick="showSecondary('@key')">@key</button>
+            }
+        </div>
+        <div class="main">
+            <div id="Form-List">
+                @foreach (var pair in ViewBag.Results)
+                {
+                    var key = pair.Key.ToString("yyyy-MM-dd");
+                    <div id="form-list-@key" class="secondary-list" style="display:none;">
+                        @for (var j = 0; j < pair.Value.Count; ++j)
+                        {
+                            <button class="btn btn-secondary" onclick="showForm(@System.Text.Json.JsonSerializer.Serialize(pair.Value[j]))">@j</button>
+                        }
+                    </div>
+                }
+            </div>
+            <img id="preview" style="max-width:400px; display:none;" />
+
+        </div>
+    </div>
+}
+
+<script>
+    function showSecondary(id) {
+        document.querySelectorAll('.secondary-list').forEach(div => div.style.display = 'none');
+        const target =document.getElementById('form-list-' + id)
+        target.style.display = 'flex';
+
+        const firstSecondaryBtn = target.querySelector('button');
+        if (firstSecondaryBtn) {
+            firstSecondaryBtn.click();
+        }
+    }
+
+    function showForm(form) {
+        const img =document.getElementById('preview');
+        img.src = '/Image/' + encodeURIComponent(form);
+        img.style.display='block';
+    }
+    window.onload = function()
+    {
+        const firstButton = document.querySelector("#Form-Results button");
+        if(firstButton){
+            firstButton.click();
+        }
+    };
+</script>
