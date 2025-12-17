@@ -12,3 +12,5 @@
 /FormView_Web/obj
 /FormView_Web/appsettings.Development.json
 /Testing
+/FormView_Bridge/bin/Debug/net8.0-windows
+/FormView_Bridge/obj
