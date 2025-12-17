@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "FormView_Web\\FormView_Web.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "FormView_Bridge\\FormView_Bridge.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

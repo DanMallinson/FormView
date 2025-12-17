@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormView_Desktop", "FormVie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormView_Web", "FormView_Web\FormView_Web.csproj", "{C571C933-0735-4505-BAA4-78CC2BDB6E28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormView_Bridge", "FormView_Bridge\FormView_Bridge.csproj", "{8E19218B-9AC5-417D-A8FD-AF0EB1E29938}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{C571C933-0735-4505-BAA4-78CC2BDB6E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C571C933-0735-4505-BAA4-78CC2BDB6E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C571C933-0735-4505-BAA4-78CC2BDB6E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E19218B-9AC5-417D-A8FD-AF0EB1E29938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E19218B-9AC5-417D-A8FD-AF0EB1E29938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E19218B-9AC5-417D-A8FD-AF0EB1E29938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E19218B-9AC5-417D-A8FD-AF0EB1E29938}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

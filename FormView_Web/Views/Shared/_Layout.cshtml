@@ -44,3 +44,27 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    function pollAccessionNumber(){
+        fetch("http://localhost:8080")
+            .then(response => {
+                if(!response.ok) {
+
+                }
+                return response.text()
+            })
+            .then(data => {
+                let path = window.location.pathname
+                let parts = path.split('/')
+                if(parts[parts.length-1] != data) {
+                    window.location.href = "/Form/" + data
+                }
+            })
+            .catch(error => {
+
+            });
+    }
+
+    setInterval(pollAccessionNumber,10000)
+</script>
